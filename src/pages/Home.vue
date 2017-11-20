@@ -1,17 +1,18 @@
 <template>
   <div class="container">
-    <button v-for="(cat, index) in catList" :key="index" class="btn btn-primary cat-button" @click="$router.push(`/cat/${cat}`)">
-      {{ cat }}
-    </button>
+    <navigation></navigation>
+    <a class="button is-primary is-large" href="/feeding">먹이주기 예약하기</a>
+    <a class="button is-primary is-large" href="/cleaning">집청소 예약하기</a>
+    <a class="button is-primary is-large" href="/spot">둘러보기</a>
   </div>
 </template>
 
 <script>
+import Navigation from '@/components/Navigation';
+
 export default {
-  data() {
-    return {
-      catList: ['냐옹이', '나비', '니체', '스피노자', '그네'],
-    };
+  components: {
+    Navigation,
   },
 };
 </script>

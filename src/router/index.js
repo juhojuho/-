@@ -5,10 +5,14 @@ import Cat from '@/pages/Cat';
 import Spot from '@/pages/Spot';
 import Cleaning from '@/pages/Cleaning';
 import Feeding from '@/pages/Feeding';
+import Login from '@/pages/Login';
+import Loading from '@/pages/Loading';
+import Add from '@/pages/Add';
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -21,19 +25,34 @@ export default new Router({
       component: Cat,
     },
     {
-      path: '/spot/:sid',
+      path: '/spot',
       name: 'Spot',
       component: Spot,
     },
     {
-      path: '/spot/:sid/cleaning',
+      path: '/cleaning',
       name: 'Cleaning',
       component: Cleaning,
     },
     {
-      path: '/spot/:sid/feeding',
+      path: '/feeding',
       name: 'Feeding',
       component: Feeding,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
+    {
+      path: '/loading',
+      name: 'laoading',
+      component: Loading,
+    },
+    {
+      path: '/add',
+      name: 'add',
+      component: Add,
     },
   ],
 });
