@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 <template>
   <div class="container">
     <navigation></navigation>
