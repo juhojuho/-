@@ -67,7 +67,6 @@ export default {
       this.$db.ref('/cleaning').push({
         date: `2017/${this.cleaningMonth}/${this.cleaningDay}`,
         title: `[먹이주기] ${this.user.displayName}`,
-        uid: this.user.uid,
         sid: this.spotNum,
       });
       location.reload();

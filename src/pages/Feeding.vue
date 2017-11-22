@@ -88,7 +88,6 @@ export default {
         date: `2017/${this.feedingMonth}/${this.feedingDay}`,
         title: `[청소] ${this.user.displayName}`,
         desc: `${this.feedingTime} ${this.feedingHour}`,
-        uid: this.user.uid,
         sid: this.spotNum,
       });
       location.reload();
