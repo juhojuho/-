@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 import Vuex from 'vuex';
 import Vue from 'vue';
 
