@@ -8,6 +8,7 @@ import Feeding from '@/pages/Feeding';
 import Login from '@/pages/Login';
 import Loading from '@/pages/Loading';
 import Add from '@/pages/Add';
+import Modal from '@/pages/Modal';
 
 Vue.use(Router);
 
@@ -46,13 +47,18 @@ export default new Router({
     },
     {
       path: '/loading',
-      name: 'laoading',
+      name: 'loading',
       component: Loading,
     },
     {
       path: '/add',
       name: 'add',
       component: Add,
+    },
+    {
+      path: '/modal',
+      name: 'modal',
+      component: Modal,
     },
   ],
 });
