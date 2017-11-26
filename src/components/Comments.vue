@@ -17,11 +17,15 @@
         <div class="date">
           {{ comment.date }}
         </div>
+        <span v-if="comment.uid === user.uid" class="icon is-medium" @click="deleteComment(comment.cid)">
+          <i class="mdi mdi-24px mdi-delete"></i>
+        </span>
         <div class="content">
           {{ comment.content }}
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -46,12 +50,15 @@ export default {
   watch: {
     sid(val) {
       this.comments = [];
-      this.$db.ref(`/comments/${val}`).orderByChild('timestamp').on('child_added', (snapshot) => {
-        const comment = snapshot.val();
-        if (comment) {
-          comment.date = computeTimestamp(comment.timestamp);
-          this.comments.unshift(comment);
-        }
+      this.$db.ref(`/comments/${val}`).orderByChild('timestamp').on('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const comment = childSnapshot.val();
+          if (comment) {
+            comment.date = computeTimestamp(comment.timestamp);
+            comment.cid = childSnapshot.key;
+            this.comments.unshift(comment);
+          }
+        });
       });
     },
   },
@@ -68,6 +75,9 @@ export default {
       } else {
         this.$router.push('/login');
       }
+    },
+    deleteComment(cid) {
+      this.$db.ref(`comments/${this.sid}/${cid}`).set(null);
     },
   },
 };
@@ -96,6 +106,7 @@ export default {
   font-weight: 400;
   color: #6a6a6a;
   margin-left: 6px;
+  margin-right: 20px;
 }
 
 .content {

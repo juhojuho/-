@@ -13,6 +13,7 @@ export default {
 <style>
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
 @import url('~bulma/css/bulma.css');
+@import url('~mdi/css/materialdesignicons.min.css');
 
 #app {
   font-family: 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
