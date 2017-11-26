@@ -2,7 +2,7 @@
   <div>
     <div class="map-container">
       <img class="map" src="../assets/images/map.png">
-      <div class="spot1" :class="{'active': spotNum === 1}" @click="spotNum = 1"></div>
+      <div class="spot1" :class="{'active': spotNum === 1}" @click="spotNum = 1; $store.commit('setSid', 1)"></div>
     </div>
     <div v-if="spotNum" style="margin-bottom: 50px">
       <vue-event-calendar :events="events[Number(spotNum) - 1]"></vue-event-calendar>
@@ -20,11 +20,13 @@
         </span>
       </label>
     </div>
-
+    <comments></comments>
   </div>
 </template>
 
 <script>
+import Comments from '@/components/Comments';
+
 export default {
   data() {
     return {
@@ -58,6 +60,9 @@ export default {
       });
     });
   },
+  components: {
+    Comments,
+  },
 };
 </script>
 
@@ -65,7 +70,7 @@ export default {
 .map-container {
   position: relative;
   margin: auto;
-  width: 500px;
+  width: 300px;
 }
 
 .spot1 {
@@ -83,6 +88,6 @@ export default {
 }
 
 .map {
-  width: 500px;
+  width: 100%;
 }
 </style>

@@ -4,7 +4,7 @@
     <navigation></navigation>
     <div class="map-container">
       <img class="map" src="../assets/images/map.png">
-      <div class="spot1" :class="{'active': spotNum === 1}" @click="spotNum = 1"></div>
+      <div class="spot1" :class="{'active': spotNum === 1}" @click="spotNum = 1; $store.commit('setSid', 1)"></div>
     </div>
     <div v-if="spotNum" style="margin-bottom: 50px">
       <vue-event-calendar :events="cleaningEvents[Number(spotNum) - 1]"></vue-event-calendar>
