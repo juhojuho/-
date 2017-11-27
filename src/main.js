@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Firebase from 'firebase';
+import axios from 'axios';
 import 'vue-event-calendar/dist/style.css';
 import vueEventCalendar from 'vue-event-calendar';
 import Vue from 'vue';
@@ -26,6 +27,7 @@ const db = Firebase.database();
 Vue.prototype.$firebase = Firebase;
 Vue.prototype.$db = db;
 Vue.prototype.$storage = Firebase.storage();
+Vue.prototype.$axios = axios;
 
 Firebase.auth().onAuthStateChanged((user) => {
   if (user) {

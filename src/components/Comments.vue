@@ -25,7 +25,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -49,8 +48,8 @@ export default {
   },
   watch: {
     sid(val) {
-      this.comments = [];
       this.$db.ref(`/comments/${val}`).orderByChild('timestamp').on('value', (snapshot) => {
+        this.comments = [];
         snapshot.forEach((childSnapshot) => {
           const comment = childSnapshot.val();
           if (comment) {
