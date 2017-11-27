@@ -5,15 +5,15 @@
     <div class="hello">
         <h1>{{ msg }}</h1>
         <div>
-            <button type="button" v-on:click="getLocation">Get Location</button>
+            <!-- button type="button" v-on:click="getLocation">Get Location</button-->
             <ul>
                 <li>Latitude: {{ latitude }}</li>
                 <li>Longitude: {{ longitude }}</li>
                 <li>Altitude: {{ altitude }}</li>
             </ul>
         </div>
-        <div id="out_map"></div>
-        <gmap-map
+        <div id="out_img"></div>
+        <!-- gmap-map
             :center="center"
             :zoom="11"
             style="width: 500px; height: 300px"
@@ -25,7 +25,7 @@
             :draggable="true"
             &click="center=m.position"
         ></gmap-marker>
-        </gmap-map>
+        </gmap-map-->
     </div>
 </template>
 <script>
@@ -35,7 +35,6 @@
   Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyDR_YxJ_CzAuOP0l2Nutvs4axQdRhUC3vU',
-      v: 'OPTIONAL VERSION NUMBER',
     },
   });
   export default {
@@ -56,6 +55,9 @@
         }],
       };
     },
+    created() {
+      this.getLocation();
+    },
     methods: {
       getLocation() {
         const geo = navigator.geolocation;
@@ -65,15 +67,16 @@
         geo.getCurrentPosition(this.success, this.error, { enableHighAccuracy: true });
       },
       success(position) {
+        document.getElementById('out_img').innerHTML = '';
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.altitude = position.coords.altitude;
         this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
-        this.markers = [{ position: { lat: this.latitude, lng: this.longitude } },
-          { position: { lat: this.latitude, lng: this.longitude } }];
-        /* this.img = new Image();
-        this.img.src = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=13&size=300x300&sensor=false`;
-        document.getElementById('out_img').appendChild(this.img); */
+        /* this.markers = [{ position: { lat: this.latitude, lng: this.longitude } },
+          { position: { lat: this.latitude, lng: this.longitude } }]; */
+        this.img = new Image();
+        this.img.src = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=13&size=500x300&sensor=false`;
+        document.getElementById('out_img').appendChild(this.img);
       },
       /* initMap() {
         this.uluru = { lat: this.latitude, lng: this.longitude };
@@ -89,6 +92,9 @@
       error(ex) {
         console.log(ex.message);
       },
+    },
+    beforeMount() {
+      this.getLocation();
     },
   };
 </script>
