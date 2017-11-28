@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navigation></navigation>
     <kmap></kmap>
     <template v-if="sid">
       <div style="margin-bottom: 50px">
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+import Navigation from '@/components/Navigation';
 import Comments from '@/components/Comments';
 import Kmap from '@/components/Kmap';
 
@@ -111,6 +113,7 @@ export default {
 
   },
   components: {
+    Navigation,
     Comments,
     Kmap,
   },

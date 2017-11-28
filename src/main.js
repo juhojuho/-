@@ -3,6 +3,7 @@
 import Firebase from 'firebase';
 import axios from 'axios';
 import 'vue-event-calendar/dist/style.css';
+import Icon from 'vue-awesome/components/Icon';
 import vueEventCalendar from 'vue-event-calendar';
 import Vue from 'vue';
 import App from './App';
@@ -12,6 +13,7 @@ import store from './store';
 Vue.config.productionTip = false;
 
 Vue.use(vueEventCalendar, { locale: 'ko', color: '#001b44' });
+Vue.component('icon', Icon);
 
 const config = {
   apiKey: 'AIzaSyCezQZd3jwRT-CAqB2BYoBdLl3yaTBPCVo',
