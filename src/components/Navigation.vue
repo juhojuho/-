@@ -2,7 +2,7 @@
   <nav class="level is-mobile" style="background-color: #00d1b2; padding: 20px;">
     <div class="level-left">
       <div class="level-item" style="font-size: 20px;" @click="$router.push('/')">
-        <img style="height:50%;" src = "../assets/images/lanseon.jpg">
+        <div style="color: white; font-weight: bold; font-size: 24px;">랜선집사</div>
       </div>
     </div>
     <div class="level-right">

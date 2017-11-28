@@ -1,14 +1,11 @@
 <template>
   <div>
     <navigation></navigation>
-    <div class="map-container">
-      <img class="map" src="../assets/images/map.png">
-      <div class="spot1" :class="{'active': spotNum === 1}" @click="spotNum = 1"></div>
-    </div>
-    <div v-if="spotNum" style="margin-bottom: 50px">
+    <kmap></kmap>
+    <div v-if="sid" style="margin-bottom: 50px">
       <vue-event-calendar :events="cleaningEvents[Number(spotNum) - 1]"></vue-event-calendar>
     </div>
-    <div v-if="spotNum">
+    <div v-if="sid">
       <div class="select is-primary">
         <select v-model="cleaningMonth">
           <option>달을 선택하세요</option>
@@ -34,16 +31,15 @@
 
 <script>
 import Navigation from '@/components/Navigation';
+import Kmap from '@/components/Kmap';
 
 export default {
   created() {
     this.$db.ref('/cleaning').once('value').then((snapshot) => {
+      this.cleaningEvents = [[], [], [], []];
       snapshot.forEach((childSnapshot) => {
         const event = childSnapshot.val();
-        if (this.cleaningEvents[event.sid - 1]) {
-          this.cleaningEvents[event.sid - 1].push(event);
-        } else {
-          this.cleaningEvents[event.sid - 1] = [];
+        if (event) {
           this.cleaningEvents[event.sid - 1].push(event);
         }
       });
@@ -61,19 +57,24 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    sid() {
+      return this.$store.state.sid;
+    },
   },
   methods: {
     send() {
       this.$db.ref('/cleaning').push({
         date: `2017/${this.cleaningMonth}/${this.cleaningDay}`,
-        title: `[먹이주기] ${this.user.displayName}`,
-        sid: this.spotNum,
+        title: `[청소] ${this.user.displayName}`,
+        sid: this.sid,
+        uid: this.user.uid,
       });
       location.reload();
     },
   },
   components: {
     Navigation,
+    Kmap,
   },
 };
 </script>

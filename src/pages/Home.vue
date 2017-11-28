@@ -1,11 +1,10 @@
 <template>
   <div class="container">
     <navigation></navigation>
-    <img style="width:100%;" src = "../assets/images/noname.jpg">
-    <a class="button is-primary is-large" href="/feeding">먹이주기 예약하기</a>
-    <a class="button is-primary is-large" href="/cleaning">집청소 예약하기</a>
-    <a class="button is-primary is-large" href="/spot">둘러보기</a>
-    <a class="button is-primary is-large" href="/modal">모달테스트</a>
+    <a class="button is-primary is-large w-90 mb" style="margin-top: 60px;" href="/feeding">먹이주기 예약하기</a>
+    <a class="button is-primary is-large w-90 mb" href="/cleaning">집청소 예약하기</a>
+    <a class="button is-primary is-large w-90 mb" href="/spot">둘러보기</a>
+    <a class="button is-primary is-large w-90" href="/modal">모달테스트</a>
     <geolocation></geolocation>
   </div>
 </template>
@@ -24,7 +23,19 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  text-align: center;
+}
+
 .cat-button {
   margin-right: 10px;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.mb {
+  margin-bottom: 20px;
 }
 </style>
