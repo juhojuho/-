@@ -1,43 +1,20 @@
 /* global google:true */
 /* eslint no-undef: "error" */
 
-
 <template>
-    <div class="hello">
-        <h1>{{ msg }}</h1>
-        <div id="out_img"></div>
-        <div>
-            <!-- button type="button" v-on:click="getLocation">Get Location</button-->
-            <ul>
-                <li>Latitude: {{ latitude }}</li>
-                <li>Longitude: {{ longitude }}</li>
-                <li>Nearest: {{ nearest }} </li>
-            </ul>
-        </div>
-        <!-- gmap-map
-            :center="center"
-            :zoom="11"
-            style="width: 500px; height: 300px"
-        ><gmap-marker
-            :key="index"
-            v-for="(m,index) in markers"
-            :position="m.position"
-            :clickable="true"
-            :draggable="true"
-            &click="center=m.position"
-        ></gmap-marker>
-        </gmap-map-->
-    </div>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <form enctype="multipart/form-data" method="post">
+      <input type="file" accept="image/*;capture=camera">
+    </form>
+    <video id="player" controls autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="snapshot" width=320 height=240></canvas>
+    <video autoplay="true" id="videoElement"></video>
+  </div>
 </template>
 <script>
-  import * as VueGoogleMaps from 'vue2-google-maps';
-  import Vue from 'vue';
 
-  Vue.use(VueGoogleMaps, {
-    load: {
-      key: 'AIzaSyDR_YxJ_CzAuOP0l2Nutvs4axQdRhUC3vU',
-    },
-  });
   export default {
     name: 'hello',
     data() {
@@ -54,12 +31,25 @@
         E1: '&markers=color:green%7Clabel:G%7C36.371455,127.364421',
         E2: '&markers=color:green%7Clabel:G%7C36.369044,127.366264',
         nearest: '',
+        video: document.querySelector('#videoElement'),
       };
     },
-    created() {
-      this.getLocation();
+    mounted() {
+      this.player();
     },
     methods: {
+      player() {
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia; // eslint-disable-line
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError);
+        }
+      },
+      handleVideo(stream) {
+        this.video.src = window.URL.createObjectURL(stream);
+      },
+      videoError(e) {
+        console.log(e);
+      },
       getLocation() {
         const geo = navigator.geolocation;
         if (geo === undefined) {
@@ -75,14 +65,12 @@
         this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
         /* this.markers = [{ position: { lat: this.latitude, lng: this.longitude } },
           { position: { lat: this.latitude, lng: this.longitude } }]; */
-        this.setNearest();
         this.img = new Image();
         this.img.src = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=500x300&sensor=false&maptype=roadmap`;
         this.img.src += this.N1; this.img.src += this.W1;
         this.img.src += this.E1; this.img.src += this.E2;
         this.img.src += `&markers=color:red%7Clabel:M%7C${this.latitude},${this.longitude}`;
-        console.log(this.img.src);
-        document.getElementById('out_img').appendChild(this.img);
+        this.setNearest();
       },
       setNearest() {
         console.log(this.latitude);
@@ -94,16 +82,16 @@
         console.log(N1Dist);
         if (MinDist === N1Dist) {
           this.nearest = 'N1';
-          this.N1 = '&markers=color:blue%7Clabel:N%7C36.371399,127.358637';
+          this.N1 = '&markers=color:blue%7Clabel:G%7C36.371399,127.358637';
         } else if (MinDist === W1Dist) {
           this.nearest = 'W1';
-          this.W1 = '&markers=color:blue%7Clabel:N%7C36.367876,127.361914';
+          this.W1 = '&markers=color:blue%7Clabel:G%7C36.367876,127.361914';
         } else if (MinDist === E1Dist) {
           this.nearest = 'E1';
-          this.E1 = '&markers=color:blue%7Clabel:N%7C36.371455,127.364421';
+          this.E1 = '&markers=color:blue%7Clabel:G%7C36.371455,127.364421';
         } else if (MinDist === E2Dist) {
           this.nearest = 'E2';
-          this.E2 = '&markers=color:green%7Clabel:N%7C36.369044,127.366264';
+          this.E2 = '&markers=color:green%7Clabel:G%7C36.369044,127.366264';
         }
       },
       /* initMap() {
@@ -126,18 +114,18 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    h1, h2 {
-        font-weight: normal;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-    a {
-        color: #42b983;
-    }
+  h1, h2 {
+    font-weight: normal;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  a {
+    color: #42b983;
+  }
 </style>

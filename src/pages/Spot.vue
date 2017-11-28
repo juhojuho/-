@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navigation></navigation>
     <kmap></kmap>
     <div v-if="sid" style="margin-bottom: 50px">
       <vue-event-calendar :events="events[Number(sid) - 1]"></vue-event-calendar>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import Navigation from '@/components/Navigation';
 import Comments from '@/components/Comments';
 import Kmap from '@/components/Kmap';
 
@@ -111,6 +113,7 @@ export default {
     },
   },
   components: {
+    Navigation,
     Comments,
     Kmap,
   },
