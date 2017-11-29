@@ -1,55 +1,61 @@
 /* global google:true */
 /* eslint no-undef: "error" */
 
+
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <form enctype="multipart/form-data" method="post">
-      <input type="file" accept="image/*;capture=camera">
-    </form>
-    <video id="player" controls autoplay></video>
-    <button id="capture">Capture</button>
-    <canvas id="snapshot" width=320 height=240></canvas>
-    <video autoplay="true" id="videoElement"></video>
+    <div id="out_map"></div>
+    <div>
+      <!-- button type="button" v-on:click="getLocation">Get Location</button-->
+      <ul>
+        <li>Latitude: {{ latitude }}</li>
+        <li>Longitude: {{ longitude }}</li>
+        <li>Nearest: {{ nearest }} </li>
+      </ul>
+    </div>
+    <gmap-map
+        :center="center"
+        :zoom="11"
+        style="width: 500px; height: 300px"
+    ><gmap-marker
+        :key="index"
+        v-for="(m,index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        &click="center=m.position"
+    ></gmap-marker>
+    </gmap-map>
   </div>
 </template>
 <script>
+  import Vue from 'vue';
+  import * as VueGoogleMaps from 'vue2-google-maps';
 
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyDR_YxJ_CzAuOP0l2Nutvs4axQdRhUC3vU',
+    },
+  });
   export default {
     name: 'hello',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: 'Geo map',
         latitude: '',
         longitude: '',
         altitude: '',
         uluru: '',
         map: '',
         center: '',
-        N1: '&markers=color:green%7Clabel:G%7C36.371399,127.358637',
-        W1: '&markers=color:green%7Clabel:G%7C36.367876,127.361914',
-        E1: '&markers=color:green%7Clabel:G%7C36.371455,127.364421',
-        E2: '&markers=color:green%7Clabel:G%7C36.369044,127.366264',
         nearest: '',
-        video: document.querySelector('#videoElement'),
       };
     },
-    mounted() {
-      this.player();
+    created() {
+      this.getLocation();
     },
     methods: {
-      player() {
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia; // eslint-disable-line
-        if (navigator.getUserMedia) {
-          navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError);
-        }
-      },
-      handleVideo(stream) {
-        this.video.src = window.URL.createObjectURL(stream);
-      },
-      videoError(e) {
-        console.log(e);
-      },
       getLocation() {
         const geo = navigator.geolocation;
         if (geo === undefined) {
@@ -58,19 +64,14 @@
         geo.getCurrentPosition(this.success, this.error, { enableHighAccuracy: true });
       },
       success(position) {
-        document.getElementById('out_img').innerHTML = '';
+        document.getElementById('out_map').innerHTML = '';
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.altitude = position.coords.altitude;
         this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
         /* this.markers = [{ position: { lat: this.latitude, lng: this.longitude } },
           { position: { lat: this.latitude, lng: this.longitude } }]; */
-        this.img = new Image();
-        this.img.src = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=500x300&sensor=false&maptype=roadmap`;
-        this.img.src += this.N1; this.img.src += this.W1;
-        this.img.src += this.E1; this.img.src += this.E2;
-        this.img.src += `&markers=color:red%7Clabel:M%7C${this.latitude},${this.longitude}`;
-        this.setNearest();
+        this.initMap();
       },
       setNearest() {
         console.log(this.latitude);
@@ -82,29 +83,29 @@
         console.log(N1Dist);
         if (MinDist === N1Dist) {
           this.nearest = 'N1';
-          this.N1 = '&markers=color:blue%7Clabel:G%7C36.371399,127.358637';
+          this.N1 = '&markers=color:blue%7Clabel:N%7C36.371399,127.358637';
         } else if (MinDist === W1Dist) {
           this.nearest = 'W1';
-          this.W1 = '&markers=color:blue%7Clabel:G%7C36.367876,127.361914';
+          this.W1 = '&markers=color:blue%7Clabel:N%7C36.367876,127.361914';
         } else if (MinDist === E1Dist) {
           this.nearest = 'E1';
-          this.E1 = '&markers=color:blue%7Clabel:G%7C36.371455,127.364421';
+          this.E1 = '&markers=color:blue%7Clabel:N%7C36.371455,127.364421';
         } else if (MinDist === E2Dist) {
           this.nearest = 'E2';
-          this.E2 = '&markers=color:green%7Clabel:G%7C36.369044,127.366264';
+          this.E2 = '&markers=color:green%7Clabel:N%7C36.369044,127.366264';
         }
       },
-      /* initMap() {
+      initMap() {
         this.uluru = { lat: this.latitude, lng: this.longitude };
-        this.map = new google.maps.Map(document.getElementById('out_map'), {
-          zoom: 4,
+        this.map = new google.maps.Map(document.getElementById('out_map'), { // eslint-disable-line
+          zoom: 14,
           center: this.uluru,
         });
-        this.marker = new google.maps.Marker({
+        this.marker = new google.maps.Marker({ // eslint-disable-line
           position: this.uluru,
           map: this.map,
         });
-      }, */
+      },
       error(ex) {
         console.log(ex.message);
       },
