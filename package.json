@@ -23,6 +23,7 @@
     "vue": "^2.5.8",
     "vue-awesome": "^2.3.4",
     "vue-event-calendar": "^1.5.1",
+    "vue-gallery": "^1.2.4",
     "vue-photo-grid": "^1.1.0",
     "vue-router": "^3.0.1",
     "vue-web-cam": "^1.0.4",

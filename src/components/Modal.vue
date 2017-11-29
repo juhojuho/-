@@ -3,7 +3,7 @@
       <img style="width:100%;" src = "../assets/images/noname.jpg" v-on:click="open">
       <sweet-modal ref="modal" style="z-index:2">
         <sweet-modal-tab title="Tab 1" id="tab1"> <cam></cam> </sweet-modal-tab>
-        <sweet-modal-tab title="Tab 2" id="tab2"> 22222222222222222222 </sweet-modal-tab>
+        <sweet-modal-tab title="Tab 2" id="tab2"> <gallery></gallery> </sweet-modal-tab>
         <sweet-modal-tab title="Tab 3" id="tab3"> <geolocation></geolocation> </sweet-modal-tab>
       </sweet-modal>
     </div>
@@ -13,12 +13,14 @@
 import { SweetModal, SweetModalTab } from 'sweet-modal-vue';
 import Cam from '@/components/Cam';
 import Geolocation from '@/components/Geolocation';
+import Gallery from '@/components/Gallery';
 import 'vue-awesome/icons/compass';
 import 'vue-awesome/icons/map-marker';
 
 export default {
   components: {
     Cam,
+    Gallery,
     Geolocation,
     SweetModal,
     SweetModalTab,

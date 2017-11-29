@@ -27,11 +27,9 @@ export default {
       if (this.img !== null) {
         this.dialog();
       }
-      /* send this.img to firebase - picture taken from the usr */
+      /* !!!! send this.img to firebase - picture taken from the usr !!!! */
     },
     dialog() {
-      // const message = `<img :src="${ImgUrl}" />`;
-      // const message = 'Delete foo <img src="https://www.w3schools.com/images/w3schools_green.jpg"></img> <br> ff </br> ?';
       const message = `고양이 사진 <img src="${this.img}"></img> <br> 지울까 ? </br>`;
       console.log(message);
 
