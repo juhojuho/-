@@ -24,10 +24,13 @@
     "vue": "^2.5.8",
     "vue-awesome": "^2.3.4",
     "vue-event-calendar": "^1.5.1",
+    "vue-gallery": "^1.2.4",
     "vue-photo-grid": "^1.1.0",
     "vue-router": "^3.0.1",
+    "vue-web-cam": "^1.0.4",
     "vue-webcam": "^2.0.4",
     "vue2-google-maps": "^0.8.4",
+    "vuejs-dialog": "^0.4.5",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -82,6 +85,7 @@
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.8",
+    "vue-devtools": "^3.1.9",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.8",

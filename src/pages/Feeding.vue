@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <navigation></navigation>
+    <geomap></geomap>
     <kmap></kmap>
     <template v-if="sid">
       <div style="margin-bottom: 50px">
@@ -40,6 +41,7 @@
 <script>
 import Navigation from '@/components/Navigation';
 import Kmap from '@/components/Kmap';
+import Geomap from '@/components/Geomap';
 
 export default {
   created() {
@@ -83,6 +85,7 @@ export default {
   components: {
     Navigation,
     Kmap,
+    Geomap,
   },
 };
 </script>
