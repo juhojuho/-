@@ -18,6 +18,10 @@ export default {
   data() {
     return {
       issues: [],
+      latitude: '',
+      longitude: '',
+      center: '',
+      nearest: '',
     };
   },
   name: 'Home',
@@ -33,6 +37,46 @@ export default {
         this.issues.push(childSnapshot.val());
       });
     });
+    /* ADDED for retrieving location lat, lng. */
+    /* Modify success() method in order to add DB instruction */
+    this.getLocation();
+  },
+  methods: {
+    getLocation() {
+      const geo = navigator.geolocation;
+      if (geo === undefined) {
+        console.log('No geolocation support');
+      }
+      geo.getCurrentPosition(this.success, this.error, { enableHighAccuracy: true });
+    },
+    success(position) {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
+      this.setNearest();
+      console.log(this.center);
+      console.log(this.nearest);
+    },
+    error(ex) {
+      console.log(ex.message);
+    },
+    setNearest() {
+      const N1Dist = (this.latitude - 36.371399) ** 2 + (this.longitude - 127.358637)**2; // eslint-disable-line
+      const W1Dist = (this.latitude - 36.367876) ** 2 + (this.longitude - 127.361914)**2; // eslint-disable-line
+      const E1Dist = (this.latitude - 36.371455) ** 2 + (this.longitude - 127.364421)**2; // eslint-disable-line
+      const E2Dist = (this.latitude - 36.369044) ** 2 + (this.longitude - 127.366264)**2; // eslint-disable-line
+      const MinDist = Math.min(N1Dist, W1Dist, E1Dist, E2Dist);
+      console.log(N1Dist);
+      if (MinDist === N1Dist) {
+        this.nearest = 'N1';
+      } else if (MinDist === W1Dist) {
+        this.nearest = 'W1';
+      } else if (MinDist === E1Dist) {
+        this.nearest = 'E1';
+      } else if (MinDist === E2Dist) {
+        this.nearest = 'E2';
+      }
+    },
   },
 };
 </script>
