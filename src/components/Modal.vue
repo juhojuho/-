@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <img style="width:100%;" src = "../assets/images/noname.jpg" v-on:click="open">
+      <img style="width:20%;" src = "../assets/images/noname.jpg" v-on:click="open">
       <sweet-modal ref="modal">
         <sweet-modal-tab title="Tab 1" id="tab1"> <geo-cam></geo-cam> </sweet-modal-tab>
         <sweet-modal-tab title="Tab 2" id="tab2"> 22222222222222222222 </sweet-modal-tab>

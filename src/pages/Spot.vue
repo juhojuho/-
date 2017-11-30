@@ -31,6 +31,7 @@
           </span>
         </label>
       </div>
+      <issues></issues>
       <comments></comments>
     </template>
   </div>
@@ -40,6 +41,7 @@
 import Navigation from '@/components/Navigation';
 import Comments from '@/components/Comments';
 import Kmap from '@/components/Kmap';
+import Issues from '@/components/Issues';
 
 export default {
   data() {
@@ -116,6 +118,7 @@ export default {
     Navigation,
     Comments,
     Kmap,
+    Issues,
   },
 };
 </script>
