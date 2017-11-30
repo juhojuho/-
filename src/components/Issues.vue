@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      options: ['먹이', '청소', '모금'],
+      options: ['먹이', '청소', '모금', '구조', '시체처리'],
       issueOption: '먹이',
       issueDesc: '',
     };
