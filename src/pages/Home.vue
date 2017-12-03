@@ -71,16 +71,16 @@ export default {
       console.log(N1Dist);
       if (MinDist === N1Dist) {
         this.nearest = 'N1';
-        this.$store.commit('setSid', 1);
+        this.$store.commit('setNearest', 2);
       } else if (MinDist === W1Dist) {
         this.nearest = 'W1';
-        this.$store.commit('setSid', 2);
+        this.$store.commit('setNearest', 1);
       } else if (MinDist === E1Dist) {
         this.nearest = 'E1';
-        this.$store.commit('setSid', 4);
+        this.$store.commit('setNearest', 4);
       } else if (MinDist === E2Dist) {
         this.nearest = 'E2';
-        this.$store.commit('setSid', 3);
+        this.$store.commit('setNearest', 3);
       }
     },
   },

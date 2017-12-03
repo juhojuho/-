@@ -45,7 +45,7 @@ export default {
         const file = event.target.files[0];
         this.$db.ref(`/photos/${this.sid}`).push({
           uid: this.user.uid,
-          photoUrl: 'loading',
+          photoUrl: 'gs://lanbutler-d72e6.appspot.com/loading.jpg',
         }).then((data) => {
           const filePath = `${this.sid}/${data.key}`;
           return this.$storage.ref(filePath).put(file).then((snapshot) => {
@@ -70,6 +70,7 @@ export default {
         this.photoUrls = [];
         snapshot.forEach((childSnapshot) => {
           const photoUrl = childSnapshot.val().photoUrl;
+          console.log(photoUrl);
           this.$storage.refFromURL(photoUrl).getMetadata().then((metadata) => {
             this.photoUrls.push(metadata.downloadURLs[0]);
           });

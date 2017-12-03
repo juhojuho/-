@@ -19,17 +19,34 @@ export default {
     return {
       images: [
         /* !!!! Need to access firebase DB !!!! */
-        'https://static.pexels.com/photos/20787/pexels-photo.jpg',
-        'https://i.pinimg.com/736x/c3/0e/9b/c30e9bbaef3532e9b5b8964024f25a71--princess-cat-princess-aurora.jpg',
-        'http://www.catster.com/wp-content/uploads/2017/06/small-kitten-meowing.jpg',
-        'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg',
       ],
       index: null,
     };
   },
-
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    nearest() {
+      return this.$store.state.nearest;
+    },
+  },
   components: {
     VueGallery,
+  },
+  watch: {
+    nearest(val) {
+      this.$db.ref(`/photos/${val}`).on('value', (snapshot) => {
+        this.images = [];
+        snapshot.forEach((childSnapshot) => {
+          const photoUrl = childSnapshot.val().photoUrl;
+          console.log(photoUrl);
+          this.$storage.refFromURL(photoUrl).getMetadata().then((metadata) => {
+            this.images.push(metadata.downloadURLs[0]);
+          });
+        });
+      });
+    },
   },
 };
 </script>

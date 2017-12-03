@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     user: '',
     sid: '',
+    nearest: '',
   },
   mutations: {
     setUser(state, user) {
@@ -18,6 +19,10 @@ export default new Vuex.Store({
     setSid(state, sid) {
       console.log(`Set sid to ${sid}`);
       state.sid = sid;
+    },
+    setNearest(state, nearest) {
+      console.log(`Set nearest to ${nearest}`);
+      state.nearest = nearest;
     },
   },
 });
