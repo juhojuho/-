@@ -2,9 +2,9 @@
     <div class="container">
       <img style="width:100%;" src = "../assets/images/noname.jpg" v-on:click="open">
       <sweet-modal ref="modal" style="z-index:2">
-        <sweet-modal-tab title="Tab 1" id="tab1"> <cam></cam> </sweet-modal-tab>
-        <sweet-modal-tab title="Tab 2" id="tab2"> <gallery></gallery> </sweet-modal-tab>
-        <sweet-modal-tab title="Tab 3" id="tab3"> <geolocation></geolocation> </sweet-modal-tab>
+        <sweet-modal-tab title="고양이 사진 찍기" id="tab1"> <cam></cam> </sweet-modal-tab>
+        <sweet-modal-tab title="고양이 갤러리" id="tab2"> <gallery></gallery> </sweet-modal-tab>
+        <sweet-modal-tab title="길고양이 급식소" id="tab3"> <geolocation></geolocation> </sweet-modal-tab>
       </sweet-modal>
     </div>
 </template>

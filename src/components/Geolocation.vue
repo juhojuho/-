@@ -9,9 +9,12 @@
         <div>
             <!-- button type="button" v-on:click="getLocation">Get Location</button-->
             <ul>
-                <li>Latitude: {{ latitude }}</li>
+                <!--li>Latitude: {{ latitude }}</li>
                 <li>Longitude: {{ longitude }}</li>
-                <li>Nearest: {{ nearest }} </li>
+                <li>Nearest: {{ nearest }} </li-->
+                <li> <img src="../assets/images/google-maps-pin-red-th.png"/> : 내 위치</li>
+                <li> <img src="../assets/images/google-maps-pin-blue-th.png"/> : 가장 가까운 급식소 "{{ nearest }} !" </li>
+                <li> <img src="../assets/images/google-maps-pin-green-th.png"/> : 모든 급식소</li>
             </ul>
         </div>
         <!-- gmap-map
@@ -42,7 +45,7 @@
     name: 'hello',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: '길고양이 급식소 마커',
         latitude: '',
         longitude: '',
         altitude: '',
