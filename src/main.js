@@ -12,7 +12,7 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-Vue.use(vueEventCalendar, { locale: 'ko', color: '#001b44' });
+Vue.use(vueEventCalendar, { locale: 'ko', color: '#00d1b2' });
 Vue.component('icon', Icon);
 
 const config = {

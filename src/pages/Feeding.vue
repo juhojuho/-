@@ -1,29 +1,28 @@
 <template>
   <div class="container">
     <navigation></navigation>
-    <geomap></geomap>
     <kmap></kmap>
-    <template v-if="sid">
-      <div style="margin-bottom: 50px">
+    <div v-if="sid" style="padding: 20px;">
+      <div style="margin-bottom: 50px;">
         <vue-event-calendar :events="feedingEvents[Number(sid) - 1]"></vue-event-calendar>
       </div>
-      <div class="select is-primary">
-        <select v-model="feedingMonth">
-          <option>달을 선택하세요</option>
+      <div class="select is-primary" style="width: 30%">
+        <select v-model="feedingMonth" style="width: 100%">
+          <option>달</option>
           <option v-for="month in 12" :key="month">
             {{ month }}
           </option>
         </select>
       </div>
-      <div class="select is-primary">
-        <select v-model="feedingDay">
-          <option>날을 선택하세요</option>
+      <div class="select is-primary" style="width: 30%">
+        <select v-model="feedingDay" style="width: 100%">
+          <option>날</option>
           <option v-for="day in 31" :key="day">
             {{ day }}
           </option>
         </select>
       </div>
-      <div class="control">
+      <div class="control" style="margin-top: 20px">
         <label class="radio">
           <input type="radio" value="아침" v-model="feedingTime" checked> 아침
         </label>
@@ -31,10 +30,12 @@
           <input type="radio" value="저녁" v-model="feedingTime"> 저녁
         </label>
       </div>
-      <a class="button is-primary" @click="send">
-        예약하기
-      </a>
-    </template>
+      <div style="text-align: center; margin-top: 20px;">
+        <a class="button is-primary" @click="send">
+          예약하기
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,8 +58,8 @@ export default {
   },
   data() {
     return {
-      feedingMonth: '달을 선택하세요',
-      feedingDay: '날을 선택하세요',
+      feedingMonth: '달',
+      feedingDay: '날',
       feedingTime: '아침',
       feedingEvents: [[], [], [], []],
     };
@@ -86,6 +87,11 @@ export default {
     Navigation,
     Kmap,
     Geomap,
+  },
+  mounted() {
+    if (this.$route.query.sid) {
+      this.$store.commit('setSid', this.$route.query.sid);
+    }
   },
 };
 </script>

@@ -3,9 +3,6 @@
     <div class="container">
       <img src="../assets/images/google-button.png" @click="signInWithGoogle" class="login-button">
     </div>
-    <div class="container">
-      <img src="../assets/images/facebook-button.png" @click="signInWithFacebook" class="login-button">
-    </div>
   </div>
 </template>
 
@@ -14,11 +11,6 @@ export default {
   methods: {
     signInWithGoogle() {
       const provider = new this.$firebase.auth.GoogleAuthProvider();
-      this.$firebase.auth().signInWithRedirect(provider);
-      this.$router.push('/');
-    },
-    signInWithFacebook() {
-      const provider = new this.$firebase.auth.FacebookAuthProvider();
       this.$firebase.auth().signInWithRedirect(provider);
       this.$router.push('/');
     },

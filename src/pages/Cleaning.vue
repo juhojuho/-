@@ -2,29 +2,33 @@
   <div>
     <navigation></navigation>
     <kmap></kmap>
-    <div v-if="sid" style="margin-bottom: 50px">
-      <vue-event-calendar :events="cleaningEvents[Number(spotNum) - 1]"></vue-event-calendar>
-    </div>
-    <div v-if="sid">
-      <div class="select is-primary">
-        <select v-model="cleaningMonth">
-          <option>달을 선택하세요</option>
-          <option v-for="month in 12" :key="month">
-            {{ month }}
-          </option>
-        </select>
+    <div v-if="sid" style="padding: 20px;">
+      <div style="margin-bottom: 50px;">
+        <vue-event-calendar :events="cleaningEvents[Number(sid) - 1]"></vue-event-calendar>
       </div>
-      <div class="select is-primary">
-        <select v-model="cleaningDay">
-          <option>날을 선택하세요</option>
-          <option v-for="day in 31" :key="day">
-            {{ day }}
-          </option>
-        </select>
+      <div>
+        <div class="select is-primary" style="width: 30%">
+          <select v-model="cleaningMonth" style="width: 100%">
+            <option>달</option>
+            <option v-for="month in 12" :key="month">
+              {{ month }}
+            </option>
+          </select>
+        </div>
+        <div class="select is-primary" style="width: 30%">
+          <select v-model="cleaningDay" style="width: 100%">
+            <option>날</option>
+            <option v-for="day in 31" :key="day">
+              {{ day }}
+            </option>
+          </select>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+          <a class="button is-primary" @click="send">
+            예약하기
+          </a>
+        </div>
       </div>
-      <a class="button is-primary" @click="send">
-        예약하기
-      </a>
     </div>
   </div>
 </template>
@@ -35,7 +39,7 @@ import Kmap from '@/components/Kmap';
 
 export default {
   created() {
-    this.$db.ref('/cleaning').once('value').then((snapshot) => {
+    this.$db.ref('/cleaning').on('value', (snapshot) => {
       this.cleaningEvents = [[], [], [], []];
       snapshot.forEach((childSnapshot) => {
         const event = childSnapshot.val();
@@ -47,10 +51,9 @@ export default {
   },
   data() {
     return {
-      cleaningMonth: '달을 선택하세요',
-      cleaningDay: '날을 선택하세요',
-      spotNum: 0,
-      cleaningEvents: [],
+      cleaningMonth: '달',
+      cleaningDay: '날',
+      cleaningEvents: [[], [], [], []],
     };
   },
   computed: {
@@ -69,12 +72,16 @@ export default {
         sid: this.sid,
         uid: this.user.uid,
       });
-      location.reload();
     },
   },
   components: {
     Navigation,
     Kmap,
+  },
+  mounted() {
+    if (this.$route.query.sid) {
+      this.$store.commit('setSid', this.$route.query.sid);
+    }
   },
 };
 </script>

@@ -1,13 +1,14 @@
 <template>
   <div class="comments-container">
-    <div class="field">
+    <h1>댓글</h1>
+    <div class="field" style="width: 70%; display: inline-block; margin-right: 10px;">
       <div class="control">
         <input class="input is-primary" type="text" v-model="newComment" placeholder="댓글을 입력해 주세요.">
       </div>
     </div>
-    <div class="button" @click="addComment">
-      댓글달기
-    </div>
+    <a class="button is-primary" @click="addComment">
+      등록
+    </a>
     <div v-for="(comment, index) in comments" :key="index" class="comment">
       <img class="round-profile" :src="comment.profileUrl">
       <div style="display: inline-block; vertical-align: middle;">
@@ -92,16 +93,20 @@ export default {
   margin-right: 24px;
 }
 
+.comment {
+  margin-bottom: 10px;
+}
+
 .nickname {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #393939;
   font-weight: 500;
 }
 
 .date {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: #6a6a6a;
   margin-left: 6px;
@@ -109,7 +114,13 @@ export default {
 }
 
 .content {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
+}
+
+h1 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 </style>

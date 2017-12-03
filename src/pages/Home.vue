@@ -2,8 +2,10 @@
   <div class="container">
     <navigation></navigation>
     <modal></modal>
-    <a class="button is-primary is-large w-90 mb" style="margin-top: 60px;" href="/feeding">먹이주기 예약하기</a>
+    <p style="margin-bottom: 20px; font-size: 20px;">계신 곳에서 <b>{{ nearest }} 급식소</b>가 가장 가깝습니다.</p>
+    <a class="button is-primary is-large w-90 mb" href="/feeding">먹이주기 예약하기</a>
     <a class="button is-primary is-large w-90 mb" href="/cleaning">집청소 예약하기</a>
+    <a class="button is-primary is-large w-90 mb" href="/buying">고양이 용품 구입하기</a>
     <a class="button is-primary is-large w-90 mb" href="/spot">둘러보기</a>
     <issue v-for="issue in issues"></issue>
   </div>
@@ -69,12 +71,16 @@ export default {
       console.log(N1Dist);
       if (MinDist === N1Dist) {
         this.nearest = 'N1';
+        this.$store.commit('setSid', 1);
       } else if (MinDist === W1Dist) {
         this.nearest = 'W1';
+        this.$store.commit('setSid', 2);
       } else if (MinDist === E1Dist) {
         this.nearest = 'E1';
+        this.$store.commit('setSid', 4);
       } else if (MinDist === E2Dist) {
         this.nearest = 'E2';
+        this.$store.commit('setSid', 3);
       }
     },
   },

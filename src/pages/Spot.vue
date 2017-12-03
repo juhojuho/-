@@ -2,38 +2,27 @@
   <div>
     <navigation></navigation>
     <kmap></kmap>
-    <template v-if="sid">
-      <div style="margin-bottom: 50px">
-        <vue-event-calendar :events="events[Number(sid) - 1]"></vue-event-calendar>
-      </div>
-      <img v-for="url in photoUrls" :src="url" class="photo">
-      <div class="field">
-        <div class="control">
-          <input class="input is-primary" v-model="query" type="text" placeholder="쇼핑하세여">
+    <div v-show="sid" style="padding: 20px;">
+      <div>
+        <h1>냥이사진</h1>
+        <div class="file" style="margin-bottom: 10px; display: inline-block;">
+          <label class="file-label">
+            <input class="file-input" type="file" @change="filesChange($event);">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="mdi mdi-upload"></i>
+              </span>
+              <span class="file-label">
+                업로드
+              </span>
+            </span>
+          </label>
         </div>
       </div>
-      <a class="button is-primary" @click="shopping">검색하기</a>
-      <div v-for="result in results">
-        <a :src="result.link">
-          <img :src="result.image" style="width: 100px;"> {{ result.title }}
-        </a>
-      </div>
-      <div class="file">
-        <label class="file-label">
-          <input class="file-input" type="file" @change="filesChange($event);">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="mdi mdi-upload"></i>
-            </span>
-            <span class="file-label">
-              고양이 사진을 업로드하세요
-            </span>
-          </span>
-        </label>
-      </div>
+      <img v-for="(url, index) in photoUrls" :src="url" :key="index" class="photo">
       <issues></issues>
       <comments></comments>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -48,8 +37,6 @@ export default {
     return {
       events: [[], [], [], []],
       photoUrls: [],
-      query: '',
-      results: [],
     };
   },
   methods: {
@@ -67,12 +54,6 @@ export default {
           });
         });
       }
-    },
-    shopping() {
-      console.log(this.query);
-      this.$axios.get(`https://us-central1-lanbutler-d72e6.cloudfunctions.net/searchNaver?q=${this.query}`).then((res) => {
-        this.results = res.data.items;
-      });
     },
   },
   computed: {
@@ -94,6 +75,7 @@ export default {
           });
         });
       });
+      /*
       this.$db.ref('/feeding').on('value', (snapshot) => {
         this.events = [[], [], [], []];
         snapshot.forEach((childSnapshot) => {
@@ -111,6 +93,7 @@ export default {
           }
         });
       });
+      */
     },
 
   },
@@ -119,6 +102,11 @@ export default {
     Comments,
     Kmap,
     Issues,
+  },
+  mounted() {
+    if (this.$route.query.sid) {
+      this.$store.commit('setSid', this.$route.query.sid);
+    }
   },
 };
 </script>
@@ -150,5 +138,15 @@ export default {
 
 .photo {
   width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+h1 {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 </style>

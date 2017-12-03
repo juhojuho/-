@@ -8,6 +8,7 @@ import Feeding from '@/pages/Feeding';
 import Login from '@/pages/Login';
 import Loading from '@/pages/Loading';
 import Add from '@/pages/Add';
+import Buying from '@/pages/Buying';
 
 Vue.use(Router);
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/add',
       name: 'add',
       component: Add,
+    },
+    {
+      path: '/buying',
+      name: 'buying',
+      component: Buying,
     },
   ],
 });
