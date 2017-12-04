@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <navigation></navigation>
     <kmap></kmap>
     <div v-if="sid" style="padding: 20px;">
@@ -87,29 +87,4 @@ export default {
 </script>
 
 <style scoped>
-.container {}
-
-.map-container {
-  position: relative;
-  margin: auto;
-  width: 500px;
-}
-
-.spot1 {
-  position: absolute;
-  bottom: 105px;
-  left: 188px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: #001b44;
-}
-
-.active {
-  background-color: red;
-}
-
-.map {
-  width: 500px;
-}
 </style>

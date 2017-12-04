@@ -3,11 +3,14 @@
     <navigation></navigation>
     <modal></modal>
     <p style="margin-bottom: 20px; font-size: 20px;">계신 곳에서 <b>{{ nearest }} 급식소</b>가 가장 가깝습니다.</p>
-    <a class="button is-primary is-large w-90 mb" href="/feeding">먹이주기 예약하기</a>
+    <div style="border: solid 1px #6a6a6a; width: 90%; margin: auto; padding-top: 10px; padding-bottom: 10px;" >
+    <h1>급식소 이슈들</h1>
+    <issue v-for="(issue, index) in issues" :issue="issue" :key="index"></issue>
+    </div>
+    <a class="button is-primary is-large w-90 mb" style="margin-top: 20px;" href="/feeding">먹이주기 예약하기</a>
     <a class="button is-primary is-large w-90 mb" href="/cleaning">집청소 예약하기</a>
     <a class="button is-primary is-large w-90 mb" href="/buying">고양이 용품 구입하기</a>
     <a class="button is-primary is-large w-90 mb" href="/spot">둘러보기</a>
-    <issue v-for="issue in issues"></issue>
   </div>
 </template>
 
@@ -102,5 +105,11 @@ export default {
 
 .mb {
   margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 </style>

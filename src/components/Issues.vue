@@ -39,7 +39,7 @@ export default {
   methods: {
     send() {
       if (this.sid) {
-        this.$db.ref(`/issues/${this.sid}`).push({
+        this.$db.ref('/issues').push({
           option: this.issueOption,
           desc: this.issueDesc,
           uid: this.user.uid,
